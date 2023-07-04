@@ -1,3 +1,5 @@
+//Delete middle node from singly LinkedList
+
 #include<iostream>
 using namespace std;
 
