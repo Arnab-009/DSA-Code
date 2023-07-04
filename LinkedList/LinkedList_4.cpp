@@ -1,3 +1,5 @@
+//Insert a node from begining in a singly LinkedList
+
 #include<iostream>
 using namespace std;
 struct Node{
