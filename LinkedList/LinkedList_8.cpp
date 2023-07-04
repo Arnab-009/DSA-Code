@@ -1,3 +1,5 @@
+//display a node by it's index from singly LinkedList
+
 #include<iostream>
 using namespace std;
 struct Node{
