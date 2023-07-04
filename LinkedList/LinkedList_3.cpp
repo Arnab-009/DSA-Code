@@ -1,3 +1,5 @@
+//display total number nodes from a singly LinkedList
+
 #include<iostream>
 using namespace std;
 struct Node{
