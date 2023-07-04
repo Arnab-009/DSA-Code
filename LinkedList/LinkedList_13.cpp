@@ -1,3 +1,5 @@
+//Delete any node by the index from singly LinkedList
+
 #include<iostream>
 using namespace std;
 struct Node{
