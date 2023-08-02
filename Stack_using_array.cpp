@@ -1,102 +1,121 @@
 #include<iostream>
-#include<stack>
 using namespace std;
-
-class ArrayStack{
+class Stack{
     private:
-        int *arr;
+        int *sp;
         int size;
         int top;
     public:
-        ArrayStack(int val){
-            size = val;
-            arr = new int[size];
-            top = -1;   
+        Stack(int size){
+            this->size = size;
+            sp = new int[size];
+            top = -1;
         }    
-        ~ArrayStack(){
-            delete[] arr;
+        ~Stack(){
+            delete[] sp;
         }
         int isEmpty(){
             if(top == -1){
                 return 1;
-            }
-            else{
+            } else {
                 return 0;
             }
         }
-        void push(int value){
-            if(top >= size-1){
-                cout<<"Stack Overflow"<<endl;
-            }
-            else{
-                top++;
-                arr[top] = value;
+        int isFull(){
+            if(top == size-1){
+                return 1;
+            } else {
+                return 0;
             }
         }
-        void pop(){
-            if(top < 0){
-                cout<<"Stack Underflow"<<endl;
+        void push(int data){
+            if(top >= size-1){
+                cout<<"Stack Overflow"<<endl;
+            } else {
+                top++;
+                sp[top] = data;
             }
-            else{
-                --top;
+        }
+        int pop(){
+            if(top == -1){
+                cout<<"Stack Underflow"<<endl;
+            } else {
+                return sp[top--];
             }
         }
         int Top(){
             if(top >= 0){
-                return arr[top];
-            }
-            else{
+                return sp[top];
+            } else {
                 return -1;
+            }
+        }
+        void peak(Stack *sp, int i){
+            int arrayInd = sp->top-i+1;
+            if(arrayInd < 0){
+                cout<<"Not a valid position for the stack"<<endl;
+            } else {
+                cout<<sp->sp[arrayInd]<<endl;
             }
         }
         void display(){
             if(top == -1){
-                cout<<"Stack is empty"<<endl;
-            }
-            else{
-                cout<<"Stack elements are: "<<endl;
-                for(int i = top; i >= 0; --i){
-                    cout<< arr[i]<<" ";
+                cout<<"Stack is Empty!!"<<endl;
+            } else {
+                cout<<"Stack Elemnts are: "<<endl;
+                for(int i = top; i>=0; i--){
+                    cout<<sp[i]<<" ";
                 }
                 cout<<endl;
             }
         }
 };
 int main(){
-    int StackSize;
-    cout<<"Enter the size of the Stack: "<<endl;
-    cin>>StackSize;
-    ArrayStack as(StackSize);
-    cout<<"Is stack empty?"<<(as.isEmpty()?" Yes":" No")<<endl;
-    int ch,input;
-    cout<<"1) Insert"<<endl<<"2) Delete"<<endl<<"3) Display"<<endl<<"4) Top"<<endl<<"5) Check stack empty"<<endl<<"6) Exit"<<endl;
+    int size;
+    cout<<"Enter the size of the stack:"<<endl;
+    cin>>size;
+    Stack s(size);
+    int ch;
+    cout<<"1) Insert(push)"<<endl<<"2) Delete(pop)"<<endl<<"3) Find top"<<endl<<"4) Check Empty"<<endl<<"5) Check Full"<<endl<<"6) Display Stack"<<endl<<"7) Peak"<<"8) Exit"<<endl;
+    
     do{
-        cout<<"Enter your choice: "<<endl;
+        cout<<"Enter your choice:"<<endl;
         cin>>ch;
         switch(ch){
             case 1:
-                cout<<"Enter element: "<<endl;
-                cin>>input;
-                as.push(input);
+                int val;
+                cout<<"Enter the value to be inserted:"<<endl;
+                cin>>val;
+                s.push(val);
                 break;
             case 2:
-                as.pop();
-                break;
+                s.pop();
+                break; 
             case 3:
-                as.display();
+                cout<<s.Top()<<endl;
                 break;
             case 4:
-                cout<<as.Top()<<endl;  
+                cout<<"Is Stack Empty?"<<(s.isEmpty()?"Empty":"Not Empty")<<endl;
                 break;
             case 5:
-                cout<<"Is stack empty?"<<(as.isEmpty()?" Yes":" No")<<endl; 
-                break; 
+                cout<<"Is Stack Full?"<<(s.isFull()?"Full":"Not Full")<<endl;
+                break;
             case 6:
-                cout<<"Exit"<<endl;
+                s.display();
+                break;
+            case 7:
+                int i;
+                cout<<"Enter a position"<<endl;
+                cin>>i;
+                s.peak(&s, i);
                 break;    
-            default:
-                cout<<"Invalid Choice!"<<endl;              
+            case 8:
+                cout<<"Exit"<<endl;  
+                break;                    
+            default :
+                cout<<"Wrong choice!!"<<endl;    
         }
-    } while(ch != 6);
+    } while(ch != 8);
+
     return 0;
 }
